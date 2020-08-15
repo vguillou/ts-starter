@@ -1,0 +1,58 @@
+{
+  "name": "ts-starter",
+  "version": "1.0.0",
+  "description": "A comfortable TypeScript starter project",
+  "author": {
+    "name": "Vincent Guillou",
+    "url": "https://github.com/vguillou"
+  },
+  "license": "WTFPL",
+  "private": true,
+  "main": "./lib/index.js",
+  "typings": "./lib/index.d.ts",
+  "scripts": {
+    "build": "rimraf lib && tsc -p tsconfig-build.json",
+    "lint": "eslint . --ext ts --fix",
+    "test": "jest",
+    "test:watch": "node --inspect node_modules/.bin/jest --watchAll --runInBand",
+    "scan": "retire --colors",
+    "ci:lint": "eslint . --ext ts --format junit -o reports/junit/ts-lint-results.xml",
+    "ci:test": "JEST_JUNIT_OUTPUT_DIR=reports/junit JEST_JUNIT_OUTPUT_NAME=ts-test-results.xml jest --ci --reporters=jest-junit",
+    "ci:scan": "retire"
+  },
+  "dependencies": {
+    "moment": "^2.27.0"
+  },
+  "devDependencies": {
+    "@types/jest": "^26.0.10",
+    "@types/node": "^14.0.27",
+    "@typescript-eslint/eslint-plugin": "^3.9.0",
+    "@typescript-eslint/parser": "^3.9.0",
+    "eslint": "^7.7.0",
+    "eslint-config-prettier": "^6.11.0",
+    "eslint-plugin-import": "^2.22.0",
+    "eslint-plugin-prettier": "^3.1.4",
+    "husky": "^4.2.5",
+    "jest": "^26.4.0",
+    "jest-junit": "^11.1.0",
+    "lint-staged": "^10.2.11",
+    "prettier": "^2.0.5",
+    "retire": "^2.2.2",
+    "rimraf": "^3.0.2",
+    "ts-jest": "^26.2.0",
+    "typescript": "^3.9.7"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
+  },
+  "lint-staged": {
+    "*.{ts}": [
+      "eslint"
+    ],
+    "*.{ts|json|yml|yaml|html}": [
+      "prettier --write"
+    ]
+  }
+}
